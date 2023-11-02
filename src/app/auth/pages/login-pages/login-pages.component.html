@@ -15,6 +15,7 @@
                placeholder="Correo electrónico">
         <span class="focus-input100"></span>
     </div>
+    
 
     <div class="wrap-input100">
         <span class="label-input100">Contraseña</span>
@@ -24,6 +25,8 @@
                placeholder="Ingrese su contraseña">
         <span class="focus-input100"></span>
     </div>
+
+    <span class="label-input100" *ngIf="errorMessage" [ngStyle]="{'color' : 'red'}" > {{errorMessage}} </span>
 
     <div class="text-right p-t-8 p-b-31"></div>
 
