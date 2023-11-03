@@ -4,6 +4,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 
 import { AuthStatus, CheckTokenResponse, LoginResponse, User } from '../interfaces';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -13,6 +14,7 @@ export class AuthService {
 
   private readonly baseUrl = environment.baseUrl
   private http = inject(HttpClient)
+  private router = inject(Router)
 
   private _currentUser = signal<User|null> (null)
   private _authStatus = signal<AuthStatus>( AuthStatus.checking)
@@ -55,12 +57,21 @@ export class AuthService {
 
   }
 
+  logOut(){
+    this._currentUser.set(null);
+    this._authStatus.set( AuthStatus.notAuthenticated)
+    localStorage.clear();
+  }
+
   checkAuthStatus(): Observable<boolean>{
 
     const url = `${this.baseUrl}/auth/check-token`;
     const token = localStorage.getItem('token')
 
-    if (!token) return of(false);
+    
+    if (!token) {
+      this.logOut();
+      return of(false);}
 
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${ token }`)

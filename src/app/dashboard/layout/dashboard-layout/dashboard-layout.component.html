@@ -4,4 +4,6 @@
 <h3> User </h3>
 <pre> {{user() | json}} </pre>
 
-<span [routerLink]="['/login']" [ngStyle]="{'color': 'blue'}"> IR AL LOGIN </span>
+<!--<span [routerLink]="['/login']" [ngStyle]="{'color': 'blue'}"> IR AL LOGIN </span> -->
+
+<button (click)="logOut()" [ngStyle]="{'margin-left': '10px','padding': '25px', 'background-color': 'blue', 'border-radius': '4px', 'color': 'white'}"> Log Out</button>
